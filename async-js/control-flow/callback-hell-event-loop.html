@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Callback hell and Event Loop</title>
+
+  <style>
+    body {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+
+    .box {
+      background-color: coral;
+      width: 5rem;
+      padding: 5rem;
+      margin: 5rem;
+      font-size: 1.75rem;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .box.circle {
+      border-radius: 50%;
+    }
+
+    .box.green {
+      background-color: green;
+    }
+
+    .box.yellow {
+      background-color: yellow;
+      color: black;
+    }
+
+    .box.fadeOut {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>This is callback and event loop practice.</h1>
+  <div class="box">
+    This is the box
+  </div>
+
+
+  <script>
+    const box = document.querySelector('.box');
+
+    function changeText(e) {
+      const el = e.currentTarget;
+      // 1. Change the text to go.
+      el.textContent = 'GOOO'
+
+      // 2. Change the shape of the box to circle after 2sec
+      setTimeout(function () {
+        el.classList.add('circle')
+
+        setTimeout(function () {
+          // 3. After 1sec change the color of the box to green
+          el.classList.add('green')
+
+          setTimeout(function () {
+            // 4. After 1sec make the box square again.
+            el.classList.remove('circle')
+
+            setTimeout(function () {
+              // 5. After 1sec change the color of the box to yellow
+              el.classList.add('yellow')
+
+              setTimeout(function () {
+                // 6. After 1sec fade out the box.
+                el.classList.add('fadeOut')
+              }, 1000)
+            }, 1000)
+          }, 1000)
+        }, 1000)
+      }, 1000)
+    }
+
+    box.addEventListener('click', changeText)
+
+  </script>
+</body>
+
+</html>

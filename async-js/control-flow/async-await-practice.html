@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async Await Practice</title>
+
+  <style>
+    body {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Async Await Practice</h1>
+
+  <script>
+    function makePizza(topping = []) {
+      return new Promise(function (resolve, reject) {
+
+        if (topping.includes('pinapple')) {
+          console.log('Seriously, Get out.');
+        }
+
+        // making a timer
+        const makeOfPizzaTimer = 500 + (topping.length * 200);
+
+        // setting the timer
+        setTimeout(function () {
+          resolve(`Your pizza 🍕 is ready with ${topping} topping`)
+        }, makeOfPizzaTimer)
+      })
+    }
+
+    function handleError(err) {
+      console.log('Ohhh noooo');
+      console.log(err);
+    }
+
+    async function makeDinner() {
+      const pizzaPromise1 = makePizza(['beef', 'tomato'])
+      const pizzaPromise2 = makePizza(['onion', 'fired egg'])
+
+      const [pep, mush] = await Promise.all([pizzaPromise1, pizzaPromise2])
+        .catch(handleError)
+
+      console.log(pep, mush);
+    }
+
+
+    makeDinner()
+  </script>
+
+</body>
+
+</html>

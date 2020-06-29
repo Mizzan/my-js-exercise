@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise Land Practice</title>
+
+
+  <style>
+    body {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>This is the practice of the promise land.</h1>
+
+  <script>
+    function makePizza(topping = []) {
+      return new Promise(function (resolve, reject) {
+
+        if (topping.includes('pinapple')) {
+          console.log('Seriously, Get out.');
+        }
+
+        // making a timer
+        const makeOfPizzaTimer = 500 + (topping.length * 200);
+
+        // setting the timer
+        setTimeout(function () {
+          resolve(`Your pizza 🍕 is ready with ${topping} topping`)
+        }, makeOfPizzaTimer)
+      })
+    }
+
+    function handleError(error) {
+      console.error('Ohh noooo');
+      console.error(`You can not have pizza because you ordered wrongly,${error}`);
+    }
+
+    // makePizza(['beef', 'tomato'])
+    //   .then(function (pizza) {
+    //     console.log(pizza);
+    //     return makePizza(['onion', 'fried egg'])
+    //   })
+    //   .then(function (pizza) {
+    //     console.log(pizza);
+    //     return makePizza(['chicken', 'cheese'])
+    //   })
+    //   .then(function (pizza) {
+    //     console.log(pizza);
+    //     return makePizza(['ginger', 'mashroom'])
+    //   })
+    //   .then(function (pizza) {
+    //     console.log(pizza);
+    //     return makePizza(['One', 'Two', 'Three', 'Four', 'Five', 'Six'])
+    //   })
+    //   .then(function (pizza) {
+    //     console.log(pizza);
+    //   })
+    //   .catch(handleError)
+
+
+    // handling multiple promise call
+    const promise1 = makePizza(['ginger', 'mashroom'])
+    const promise2 = makePizza(['chicken', 'cheese'])
+    const promise3 = makePizza(['onion', 'fried egg'])
+
+    const dinnerPromise = Promise.all([promise1, promise2, promise3])
+
+    dinnerPromise.then(function ([pizza1, pizza2, pizza3]) {
+      console.log(pizza1, pizza2, pizza3);
+    })
+      .catch(handleError)
+
+  </script>
+</body>
+
+</html>
